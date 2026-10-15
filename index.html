@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ترب گوشی — دمو</title>
+<style>
+  :root{--bg:#0e1013;--card:#171a20;--line:#262b34;--tx:#e9ecf1;--mut:#8b94a3;--red:#f31d3a;--grn:#4ade80;--amb:#fbbf24}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:Vazirmatn,Tahoma,system-ui,sans-serif;line-height:1.7}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .logo{width:38px;height:38px;border-radius:50%;border:6px solid var(--red);box-shadow:inset 0 0 0 5px var(--bg)}
+  h1{font-size:20px;margin:0} h1 small{color:var(--mut);font-weight:400;font-size:13px;margin-right:8px}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  input[type=text]{flex:1;min-width:200px;background:#0e1013;border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:11px 14px;font:inherit;font-size:15px}
+  input[type=text]:focus{outline:2px solid var(--red);border-color:transparent}
+  #brand{max-width:200px;flex:0 1 200px}
+  button{background:var(--red);color:#fff;border:0;border-radius:10px;padding:10px 18px;font:inherit;cursor:pointer}
+  button:disabled{opacity:.5;cursor:wait}
+  button.ghost{background:transparent;border:1px solid var(--line);color:var(--mut);padding:5px 12px;font-size:13px}
+  button.ghost:hover{color:var(--tx);border-color:var(--mut)}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .tag{font-size:12px;padding:2px 10px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+  .tag.on{color:var(--grn);border-color:#1f5a37;background:#0f2a1b}
+  .tag.warn{color:var(--amb);border-color:#5a4a1f;background:#2a230f}
+  .grid{display:grid;grid-template-columns:1fr 1.25fr;gap:14px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  h2{font-size:14px;color:var(--mut);margin:0 0 10px;font-weight:600}
+  .raw{font:12px/1.8 ui-monospace,Menlo,monospace;color:#b7bfcc;max-height:560px;overflow:auto}
+  .raw div{padding:3px 8px;border-bottom:1px dashed var(--line)}
+  .raw .x{color:#6b7380;text-decoration:line-through}
+  .raw em{font-style:normal;color:var(--amb)}
+  .offer{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#12151a}
+  .offer.best{border-color:var(--grn);background:#0f1f17}
+  .rank{width:30px;height:30px;border-radius:50%;background:#222833;display:grid;place-items:center;font-size:13px;color:var(--mut)}
+  .best .rank{background:var(--grn);color:#052e16;font-weight:700}
+  .t{font-size:15px;font-weight:600}
+  .meta{font-size:12.5px;color:var(--mut)}
+  .price{text-align:left;font-size:16px;font-weight:700;direction:ltr;white-space:nowrap}
+  .price small{display:block;font-weight:400;color:var(--mut);font-size:11px}
+  .why{background:#0f1f17;border:1px solid #1f5a37;border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:14px}
+  .why b{color:var(--grn)}
+  .bar{height:4px;border-radius:2px;background:#222833;margin-top:6px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--red)}
+  .best .bar i{background:var(--grn)}
+  .msg{color:var(--mut);padding:30px 0;text-align:center}
+  .note{color:var(--mut);font-size:12px;margin-top:20px}
+  a{color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"></div>
+    <h1>ترب گوشی<small>دموی «ترب … رو بساز» · نتایج زنده‌ی ترب، پاک‌سازی‌شده و رتبه‌بندی‌شده بر اساس قصد تو</small></h1>
+  </header>
+
+  <div class="box">
+    <div class="row">
+      <input id="brand" type="text" value="گوشی سامسونگ" aria-label="جست‌وجو">
+      <input id="q" type="text" value="ارزان‌ترین گوشی نو با حافظه ۲۵۶" aria-label="قصد تو">
+      <button id="go">بچین</button>
+    </div>
+    <div class="chips" id="ex"></div>
+    <div class="chips" id="intent"></div>
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h2>۱ · خروجی خام ترب (زنده) و آنچه کنار گذاشته شد</h2>
+      <div class="raw" id="raw"><div class="msg">…</div></div>
+    </div>
+    <div class="box">
+      <h2>۲ · نتیجه‌ی تمیز، رتبه‌بندی‌شده و توضیح‌دار</h2>
+      <div id="why"></div>
+      <div id="out"><div class="msg">…</div></div>
+    </div>
+  </div>
+  <p class="note">داده از API عمومی جست‌وجوی ترب با نرخ پایین و کش ۱۰ دقیقه‌ای گرفته می‌شود (از طریق پروکسی محلی). این پروژه‌ی دمو و غیرتجاری است و به ترب وابسته نیست؛ قیمت‌ها همان‌هایی‌اند که ترب نشان می‌دهد و ممکن است تغییر کنند.</p>
+</div>
+
+<script>
+const $ = s=>document.querySelector(s), P = n=>Number(n).toLocaleString("fa-IR");
+const digits = s => s.replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d));
+
+/* ---------- 1. classify raw Torob rows ---------- */
+const ACCESSORY = /شارژر|کابل|قاب|گلس|محافظ|هندزفری|پاور ?بانک|هدفون|کیف|بند|ایرپاد|Charger|Cable|Case|Protector|Glass|Earbuds|Power ?bank|Holder/i;
+const REGION = /\((ویتنام|چین|هند|امارات|اندونزی|ترکیه|ویتنامی)\)/;
+
+function classify(r){
+  const n1 = r.name1||"", n2 = r.name2||"";
+  const all = n1+" "+n2;
+  const reasons = [];
+  if(!/^گوشی/.test(n1) || ACCESSORY.test(n1.split("|")[0])) reasons.push("لوازم جانبی / غیرگوشی");
+  if(r.is_adv) reasons.push("آگهی");
+  const m = digits(n1).match(/حافظه\s*(\d+)\s*(?:رم|RAM)\s*([\d.]+)/);
+  const clone = /طرح|High Copy|های ?کپی|Copy/i.test(all);
+  const used = /کارکرده/.test(r.stock_status||"") || /استوک|Stock/i.test(all);
+  const reg = (n1.match(REGION)||[])[1]||null;
+  const shops = (digits(r.shop_text||"").match(/در\s*(\d+)\s*فروشگاه/)||[])[1];
+  return {
+    raw:r, name:n1.split("|")[0].trim(), en:n2, price:r.price||0,
+    storage:m?+m[1]:null, ram:m?+m[2]:null, clone, used, region:reg,
+    shops: shops?+shops:1, shopName: shops?null:(r.shop_text||"").replace(/^در\s*/,""),
+    reasons, url: r.web_client_absolute_url ? "https://torob.com"+r.web_client_absolute_url : null,
+  };
+}
+
+/* ---------- 2. intent ---------- */
+function parseIntent(q){
+  q = digits(q).replace(/‌/g," ");
+  const I={w:{price:1,storage:.3,ram:.2,trust:.4}, allowUsed:false, allowClone:false, minStorage:0, tags:[]};
+  const tag=t=>I.tags.push(t);
+  if(/ارزان|ارزون|کمترین قیمت|ته قیمت/.test(q)){I.w.price=6;tag("قیمت ↑")}
+  const s=q.match(/(?:حافظه|ذخیره)\s*(\d+)/); if(s){I.minStorage=+s[1];I.w.storage=1.2;tag("حافظه ≥ "+s[1]+"GB")}
+  if(/حافظه (زیاد|بالا)|بیشترین حافظه/.test(q)){I.w.storage=2;tag("حافظه ↑")}
+  if(/رم (زیاد|بالا)|بیشترین رم/.test(q)){I.w.ram=2;tag("رم ↑")}
+  if(/معتبر|پرفروشگاه|مطمئن/.test(q)){I.w.trust=1.6;tag("اطمینان فروشگاهی ↑")}
+  if(/استوک|کارکرده|دست دوم/.test(q)){I.allowUsed=true;tag("کارکرده هم اوکی")}
+  else if(/\bنو\b|نو و|اصل|اورجینال|آکبند/.test(q)){tag("فقط نو و اصل")}
+  if(/طرح|کپی/.test(q)){I.allowClone=true;tag("طرح اصلی هم اوکی")}
+  return I;
+}
+
+/* ---------- 3. filter + rank + explain ---------- */
+function split(items, I){
+  const keep=[], drop=[];
+  for(const x of items){
+    const rs=[...x.reasons];
+    if(x.clone && !I.allowClone) rs.push("کپی/طرح اصلی — قیمت اغراق‌آمیز پایین");
+    if(x.used && !I.allowUsed) rs.push("کارکرده/استوک");
+    (rs.length?drop:keep).push({...x,drop:rs});
+  }
+  return {keep,drop};
+}
+function rank(items,I){
+  if(!items.length) return [];
+  const rng=(f)=>{const v=items.map(f).filter(x=>x!=null);return [Math.min(...v),Math.max(...v)]};
+  const n=(v,[lo,hi])=>v==null?0:hi===lo?1:(v-lo)/(hi-lo);
+  const pr=rng(x=>x.price), st=rng(x=>x.storage), rm=rng(x=>x.ram), sh=rng(x=>Math.log(1+x.shops));
+  return items.map(x=>{
+    const c={price:(1-n(x.price,pr))*I.w.price, storage:n(x.storage,st)*I.w.storage,
+             ram:n(x.ram,rm)*I.w.ram, trust:n(Math.log(1+x.shops),sh)*I.w.trust};
+    let pen=0, flags=[];
+    if(I.minStorage && (x.storage||0)<I.minStorage){pen+=2;flags.push("حافظه کمتر از "+I.minStorage)}
+    if(x.region){flags.push("نسخه‌ی "+x.region)}
+    if(x.used) flags.push("کارکرده");
+    if(x.clone) flags.push("طرح اصلی");
+    const score=Object.values(c).reduce((a,b)=>a+b,0)-pen;
+    return {...x,c,flags,score};
+  }).sort((a,b)=>b.score-a.score);
+}
+const LABEL={price:"قیمت",storage:"حافظه",ram:"رم",trust:"تعداد فروشگاه"};
+function explain(r,dropped,I){
+  const [a,b]=r;
+  const top=Object.entries(a.c).sort((x,y)=>y[1]-x[1]).filter(x=>x[1]>.3).slice(0,2).map(x=>LABEL[x[0]]);
+  let t=`<b>${a.name}</b> بهترین انتخاب است`;
+  if(top.length) t+=` — بیشترین امتیاز را از «${top.join("» و «")}» گرفته`;
+  t+=`. ${P(a.price)} تومان، ${a.shopName?("در "+a.shopName):("در "+P(a.shops)+" فروشگاه")}.`;
+  if(b){const d=b.price-a.price;
+    t+=` نسبت به «${b.name}»: ${d>0?P(d)+" تومان ارزان‌تر":d<0?P(-d)+" تومان گران‌تر ولی هم‌خوان‌تر با خواسته‌ات":"هم‌قیمت ولی هم‌خوان‌تر"}.`}
+  if(dropped) t+=` ${P(dropped)} مورد از نتایج خام ترب (لوازم جانبی، آگهی، کپی یا کارکرده) کنار گذاشته شد.`;
+  return t;
+}
+
+/* ---------- 4. UI ---------- */
+const EX=[["گوشی سامسونگ","ارزان‌ترین گوشی نو با حافظه ۲۵۶"],["گوشی شیائومی","بیشترین حافظه و رم، فروشگاه معتبر"],["گوشی اپل","ته قیمت، استوک هم اوکیه"]];
+$("#ex").innerHTML=EX.map((e,i)=>`<button class="ghost" data-i="${i}">${e[0]} · ${e[1]}</button>`).join("");
+$("#ex").onclick=e=>{const i=e.target.dataset.i;if(i!=null){$("#brand").value=EX[i][0];$("#q").value=EX[i][1];run()}};
+
+async function run(){
+  const btn=$("#go"); btn.disabled=true;
+  const I=parseIntent($("#q").value);
+  $("#intent").innerHTML=`<span class="tag">قصد فهم‌شده:</span>`+(I.tags.length?I.tags.map(t=>`<span class="tag on">${t}</span>`).join(""):`<span class="tag">پیش‌فرض: ارزان‌ترین نو</span>`);
+  $("#out").innerHTML=`<div class="msg">در حال گرفتن نتایج زنده از ترب…</div>`; $("#why").innerHTML="";
+  try{
+    const res=await fetch("/api/search?q="+encodeURIComponent($("#brand").value));
+    const j=await res.json(); if(!res.ok) throw new Error(j.error||res.status);
+    const items=j.results.map(classify);
+    const {keep,drop}=split(items,I);
+    $("#raw").innerHTML=items.map(x=>{
+      const d=drop.find(d=>d.raw===x.raw);
+      return d?`<div class="x">${x.raw.name1.replace(/</g,"&lt;")} <em>← ${d.drop[0]}</em></div>`
+              :`<div>${x.raw.name1.replace(/</g,"&lt;")}</div>`}).join("")
+      +`<div class="msg" style="padding:8px">${j.cached?"از کش · ":""}${P(items.length)} ردیف از ترب</div>`;
+    const r=rank(keep,I);
+    if(!r.length){$("#out").innerHTML=`<div class="msg">چیزی پیدا نشد؛ جست‌وجو یا قصد را عوض کن.</div>`;return}
+    $("#why").innerHTML=`<div class="why">${explain(r,drop.length,I)}</div>`;
+    const max=Math.max(...r.map(x=>x.score)),min=Math.min(...r.map(x=>x.score));
+    $("#out").innerHTML=r.slice(0,8).map((o,i)=>{
+      const pct=max===min?100:Math.max(6,(o.score-min)/(max-min)*100);
+      return `<div class="offer ${i?"":"best"}"><div class="rank">${P(i+1)}</div><div>
+        <div class="t">${o.url?`<a href="${o.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${o.name}</a>`:o.name}</div>
+        <div class="meta">${o.storage?P(o.storage)+" گیگ حافظه":"حافظه ؟"} · ${o.ram?P(o.ram)+" گیگ رم":"رم ؟"} · ${o.shopName?o.shopName:P(o.shops)+" فروشگاه"}
+        ${o.flags.length?` · <span style="color:var(--amb)">⚠ ${o.flags.join("، ")}</span>`:""}</div>
+        <div class="bar"><i style="width:${pct}%"></i></div></div>
+        <div class="price">${P(o.price)}<small>تومان</small></div></div>`}).join("");
+  }catch(e){
+    $("#out").innerHTML=`<div class="msg">خطا در گرفتن داده از ترب: ${String(e.message).replace(/</g,"&lt;")}</div>`;
+  }finally{btn.disabled=false}
+}
+$("#go").onclick=run;
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("input"))run()});
+run();
+</script>
+</body>
+</html>
