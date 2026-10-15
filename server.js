@@ -46,6 +46,10 @@ http.createServer(async (req, res) => {
       return res.end(JSON.stringify({ error: String(e.message || e) }));
     }
   }
+  if (u.pathname === "/logo.png") {
+    res.writeHead(200, { "content-type": "image/png" });
+    return fs.createReadStream(path.join(__dirname, "logo.png")).pipe(res);
+  }
   const file = path.join(__dirname, "index.html");
   res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
   fs.createReadStream(file).pipe(res);
